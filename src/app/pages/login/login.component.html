@@ -1,0 +1,25 @@
+<h1>Вход</h1>
+<div class="form-container">    
+    <div class="form-row">
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>e-mail</mat-label>
+            <input matInput placeholder="pat@example.com" [formControl]="email"
+                required>
+            <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+    </div>
+    <div class="form-row">
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>пароль</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'">
+            <button mat-icon-button matSuffix (click)="hide= !hide"
+                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+    </div>
+    <div class="form-buttons row jcsb">
+        <button mat-stroked-button color="primary">Войти</button>
+        <a mat-stroked-button target="_blank" routerLink="/signup">Регистрация</a>
+    </div>
+</div>

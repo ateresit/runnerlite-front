@@ -1,18 +1,65 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '~@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$frontend-primary: mat.define-palette(mat.$indigo-palette);
+$frontend-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$frontend-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$frontend-theme: mat.define-light-theme((
+  color: (
+    primary: $frontend-primary,
+    accent: $frontend-accent,
+    warn: $frontend-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($frontend-theme);
+
 $container_width: 1170px;
 $active_color: #e36152;
 $brown-color: #574947;
 $red-color: #e46354;
 $yellow-color: #f0bc6e;
 
-@import url(http://fonts.googleapis.com/css?family=Righteous); 
+:root {
+    --active_color: #e36152;
+}
+
+/*@import url(http://fonts.googleapis.com/css?family=Righteous); */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@200;300;400;500;600;700&display=swap'); 
 @import "normalize";
 
 * {
     margin: 0;
     padding: 0;    
 }
+html, body { height: 100%;}
 body {
-    font-family: "Righteous";
+    /*font-family: "Righteous";*/
+    font-family: 'Roboto Slab', serif;
+}
+.wrapper {
+    height: 100%;
+    display: grid;
+    grid-template-rows: 1fr auto;
 }
 .container {    
     width: $container_width;
@@ -147,93 +194,9 @@ body {
         &:hover { opacity: .5; }
     }
 }
-.sub-menu {
-    &__wrapper {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        z-index: 10001;
-        opacity: 0;
-        visibility: hidden;
-        padding-top: 3px;
-    }
-    list-style: none;
-    background: #392f2d;
-    padding: 2.3em 2.3em 1.1em 1em;
-    border-radius: 4px;    
-    &__item {
-        padding: 0.5em 0;
-        &:not(:last-child) { border-bottom: 1px dashed #4d4442; }
-        > a {
-            color: #fff;
-            transition: .25s ease;
-            text-decoration: none;
-            text-transform: uppercase;
-            &:hover { color: #f2c888; }
-        }
-    }
-}
-.main-menu {
-    list-style: none;
-    &__item {
-        position: relative;
-        padding: .7em .9em;
-        border-radius: 5px;
-        font-size: 0.9em;
-        margin-right: 0.6em;
-        background: transparent;
-        transition: .25s ease;
-        > a {
-            text-decoration: none;
-            text-transform: uppercase;
-            color: #32302b;
-            transition: .25s ease;
-        }
-        &:hover {
-            background: $active_color;
-            > a { color: #fff; }
-            .sub-menu__wrapper {
-                opacity: 1;                
-                transition: all ease 0.25s;
-                visibility: visible;
-            }
-        }
-    }
-}
+
 .content { padding-top: 1.8em; }
-.slide {
-    position: relative;
-    &-info {
-        position: absolute;
-        top: 2.8em;
-        left: 1.7em;
-        width: 31.7%;
-        &__text {
-            flex-direction: column;
-            justify-content: center;            
-            height: 20em;
-            box-sizing: border-box;
-            padding: 2.4em 1.8em 0.9em 1.8em;
-            p {
-                color: rgba(255,255,255,0.3);
-                text-transform: uppercase;
-                font-size: 1.1em;
-            }        
-        }
-        &__title {
-            color: #fff;
-            text-transform: uppercase;
-            font-size: 3em;
-            letter-spacing: -1.3px;
-            line-height: 0.8;
-            margin-bottom: 0.5em;
-        }
-        &__button {            
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding: 1.7em 0 2.1em 1.9em;
-        }        
-    }
-}
+
 .col {
     width: 31.7%;
     box-sizing: border-box;
@@ -248,7 +211,7 @@ body {
     font: normal 0.65em/1.5 Abel, sans-serif;
 }
 .red {
-    color: $active_color;
+    color: var(--active_color);
 }
 .service {   
     &-box {
@@ -316,7 +279,27 @@ body {
         text-decoration: none;
         font-size: 1em;
         &:hover {
-            color: $active_color;
+            color: var(--active_color);
+        }
+    }
+}
+.form-container {
+    width: 33%;
+    &--half {
+        width: 38%;
+    }
+}
+.full-width {
+    width: 100%;
+}
+.two-cntrl {
+    max-width: 46%;
+}
+.form-row {    
+    &--radio {
+        padding: 0.3em 0 1.5em;
+        label {
+            padding-right: 1.1em;
         }
     }
 }

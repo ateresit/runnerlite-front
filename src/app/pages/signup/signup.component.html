@@ -1,0 +1,106 @@
+<h1>Регистрация</h1>
+<form (submit)="save()">
+    <div class="form-container form-container--half">
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>e-mail</mat-label>
+                <input matInput placeholder="pat@example.com" required
+                name="email" [(ngModel)]="signupDto.email">
+            </mat-form-field>
+        </div>
+        <div class="form-row row jcsb">
+            <mat-form-field appearance="outline">
+                <mat-label>ФИО</mat-label>
+                <input matInput required
+                name="fullName" [(ngModel)]="signupDto.fullName">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Никнейм</mat-label>
+                <input matInput 
+                name="nikName" [(ngModel)]="signupDto.nikName">
+            </mat-form-field>
+        </div>
+        <div class="form-row row jcsb">
+            <mat-form-field appearance="outline">
+                <mat-label>Город</mat-label>
+                <input type="text"
+                    placeholder="Pick one"
+                    aria-label="Город"
+                    matInput
+                    required
+                    [formControl]="cityControl"
+                    [matAutocomplete]="autoCity"
+                    name="city"
+                    [(ngModel)]="signupDto.city">
+                <mat-autocomplete autoActiveFirstOption
+                    #autoCity="matAutocomplete">
+                    <mat-option *ngFor="let option of filteredCities | async"
+                        [value]="option">
+                        {{option}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Домашняя команда</mat-label>
+                <input type="text"
+                    placeholder="Pick one"
+                    aria-label="Домашняя команда"
+                    matInput
+                    required
+                    [formControl]="teamContol"
+                    [matAutocomplete]="autoTeam"
+                    name="team"
+                    [(ngModel)]="signupDto.team">
+                <mat-autocomplete autoActiveFirstOption
+                    #autoTeam="matAutocomplete">
+                    <mat-option *ngFor="let option of filterdTeams | async"
+                        [value]="option">
+                        {{option}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </div>
+        <div class="form-row row jcsb">
+            <mat-form-field appearance="outline" class="two-cntrl">
+                <mat-label>Телефон</mat-label>
+                <input matInput required
+                    prefix="+7" mask="(000) 000 00 00"
+                    name="phone" [(ngModel)]="signupDto.phone">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="two-cntrl">
+                <mat-label>Дата рождения</mat-label>
+                <input matInput [matDatepicker]="datepicker" required
+                name="birthday"    [(ngModel)]="signupDto.birthday">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                <mat-datepicker #datepicker>
+                    <mat-datepicker-actions>
+                        <button mat-button matDatepickerCancel>Cancel</button>
+                        <button mat-raised-button color="primary"
+                            matDatepickerApply>Apply</button>
+                    </mat-datepicker-actions>
+                </mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="form-row form-row--radio">
+            <label>Пол:</label>
+            <mat-radio-group required [(ngModel)]="signupDto.sex" name="sex">
+                <mat-radio-button color="primary" value="m">Муж.</mat-radio-button>
+                <mat-radio-button color="primary" value="w">Жен.</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="form-row row jcsb">
+            <mat-form-field appearance="outline">
+                <mat-label>Пароль</mat-label>
+                <input matInput type="password" name="pass" [(ngModel)]="signupDto.pass">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Повторите пароль</mat-label>
+                <input matInput type="password" name="rePass" [(ngModel)]="signupDto.rePass">
+            </mat-form-field>
+        </div>
+        <div class="form-buttons row jcsb">
+            <button mat-stroked-button color="primary" type="submit">Сохранить</button>
+        </div>
+    </div>
+</form>
