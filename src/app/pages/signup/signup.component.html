@@ -30,34 +30,25 @@
                     required
                     [formControl]="cityControl"
                     [matAutocomplete]="autoCity"
-                    name="city"
-                    [(ngModel)]="signupDto.city">
-                <mat-autocomplete autoActiveFirstOption
+                    autocomplete="off">
+                <mat-autocomplete autoActiveFirstOption (optionSelected)="changeCity($event)"
+                    [displayWith]="displayCity"
                     #autoCity="matAutocomplete">
-                    <mat-option *ngFor="let option of filteredCities | async"
+                    <mat-option *ngFor="let option of filteredCities | async"                        
                         [value]="option">
-                        {{option}}
+                        {{option.name}}
                     </mat-option>
                 </mat-autocomplete>
             </mat-form-field>
             <mat-form-field appearance="outline">
                 <mat-label>Домашняя команда</mat-label>
-                <input type="text"
-                    placeholder="Pick one"
-                    aria-label="Домашняя команда"
-                    matInput
-                    required
-                    [formControl]="teamContol"
-                    [matAutocomplete]="autoTeam"
-                    name="team"
-                    [(ngModel)]="signupDto.team">
-                <mat-autocomplete autoActiveFirstOption
-                    #autoTeam="matAutocomplete">
-                    <mat-option *ngFor="let option of filterdTeams | async"
+                <mat-select>
+                    <mat-option *ngFor="let option of teamsList"
                         [value]="option">
-                        {{option}}
+                        {{option.name}}
+                        <span class="mat-option-district">{{option.location.refDistricts.name}}</span>
                     </mat-option>
-                </mat-autocomplete>
+                </mat-select>                
             </mat-form-field>
         </div>
         <div class="form-row row jcsb">
