@@ -1,15 +1,16 @@
 export class SignupDto {
     constructor(
+        public id: number,
         public email: string,
         public fullName: string,
-        public nikName: string,
-        public city: string,
-        public team: string,
+        public password: string,
+        public nickName: string,
         public phone: string,
-        public birthday: string,
-        public sex: string,
-        public pass: string,
-        public rePass: string
+        public isActive: boolean,
+        public useNick: boolean,
+        public teamId: number,
+        public birthday: number,
+        public sex: string
     ) {        
     }
 }

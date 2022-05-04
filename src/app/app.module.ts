@@ -20,22 +20,27 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { DateAdapter, MatNativeDateModule, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { MAT_MOMENT_DATE_FORMATS, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
 
 import { IndexComponent } from './pages/index/index.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { LoginComponent } from './pages/login/login.component';
 
-import {HttpClientModule} from "@angular/common/http"; 
+import { HttpClientModule } from "@angular/common/http";
+//import { CustomDateAdapter } from './helpers/custom.data.adapter';
+import { CabinetRunnerComponent } from './pages/cabinet-runner/cabinet-runner.component';
+import { from } from 'rxjs';
+
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
 };
 @NgModule({
   declarations: [
-    AppComponent,   
-    SliderComponent, MainMenuComponent, IndexComponent, LoginComponent, SignupComponent
+    AppComponent,
+    SliderComponent, MainMenuComponent, IndexComponent, LoginComponent, SignupComponent, CabinetRunnerComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +63,15 @@ const maskConfig: Partial<IConfig> = {
     HttpClientModule
   ],
   providers: [
-    {provide: MAT_DATE_LOCALE, useValue: 'ru-RU'}
+ //   { provide: DateAdapter, useClass: CustomDateAdapter },
+    { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' },
+    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+    },
+    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }
   ],
   bootstrap: [AppComponent]
 })

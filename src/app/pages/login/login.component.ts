@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {Title} from "@angular/platform-browser";
+import { Router } from '@angular/router';
+import { Credentials } from 'src/app/model/credentials';
+import { AuthService } from 'src/app/services/auth.service';
 
-
-
+export const LOGIN_URL = 'login';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -11,23 +13,61 @@ import {Title} from "@angular/platform-browser";
 })
 export class LoginComponent implements OnInit {
   
-
-  email = new FormControl('', [Validators.required, Validators.email]);
+  loginForm!: FormGroup; 
   
   hide = true;
 
-  getErrorMessage() {
-    if (this.email.hasError('required')) {
-      return 'You must enter a value';
-    }
-    return this.email.hasError('email') ? 'Not a valid email' : '';
-  }
-
-  constructor(private titleService: Title) {
+  isError: boolean = false;
+  
+  constructor(private titleService: Title,
+    private fb: FormBuilder,
+    private auth: AuthService,
+    private router: Router) {
     this.titleService.setTitle("Login");
   }
 
   ngOnInit(): void {
+    this.initForm();
+  }
+
+  initForm() {
+    this.loginForm = this.fb.group({
+      email: ['',[
+        Validators.required,
+        Validators.email
+      ]],
+      password: ['', [
+        Validators.required
+      ]]
+    })
+  }
+
+  isControlInvalid(controlName: string): boolean {
+    const control = this.loginForm.controls[controlName];
+    const result = control.invalid && control.touched;
+    return result;
+  } 
+
+  login() {
+    const controls = this.loginForm.controls;
+    if (this.loginForm.invalid) {
+      Object.keys(controls)
+        .forEach(cn => controls[cn].markAsTouched());
+        return;
+    }    
+    this.auth.authenticate(new Credentials(this.loginForm.value.email, this.loginForm.value.password))
+    .subscribe(authResult => {
+      this.isError = false;
+      if (authResult.redirectUrl) {
+        this.router.navigateByUrl(authResult.redirectUrl);
+      } else {
+        this.router.navigateByUrl('/');
+      }
+    }, error => {
+      this.isError = true;      
+      console.log(error);
+    });
+    
   }
 
 }

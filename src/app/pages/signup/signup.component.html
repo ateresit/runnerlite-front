@@ -1,34 +1,30 @@
 <h1>Регистрация</h1>
-<form (submit)="save()">
+<form [formGroup]="signupForm" (submit)="onSubmit()">
     <div class="form-container form-container--half">
         <div class="form-row">
             <mat-form-field appearance="outline" class="full-width">
-                <mat-label>e-mail</mat-label>
-                <input matInput placeholder="pat@example.com" required
-                name="email" [(ngModel)]="signupDto.email">
+                <mat-label>e-mail *</mat-label>
+                <input matInput formControlName="email" placeholder="pat@example.com">                
             </mat-form-field>
         </div>
         <div class="form-row row jcsb">
             <mat-form-field appearance="outline">
-                <mat-label>ФИО</mat-label>
-                <input matInput required
-                name="fullName" [(ngModel)]="signupDto.fullName">
+                <mat-label>ФИО *</mat-label>
+                <input matInput formControlName="fullName">
             </mat-form-field>
             <mat-form-field appearance="outline">
                 <mat-label>Никнейм</mat-label>
-                <input matInput 
-                name="nikName" [(ngModel)]="signupDto.nikName">
+                <input matInput formControlName="nickName">
             </mat-form-field>
         </div>
         <div class="form-row row jcsb">
             <mat-form-field appearance="outline">
-                <mat-label>Город</mat-label>
+                <mat-label>Город *</mat-label>
                 <input type="text"
                     placeholder="Pick one"
                     aria-label="Город"
-                    matInput
-                    required
-                    [formControl]="cityControl"
+                    matInput                    
+                    formControlName="city"
                     [matAutocomplete]="autoCity"
                     autocomplete="off">
                 <mat-autocomplete autoActiveFirstOption (optionSelected)="changeCity($event)"
@@ -41,28 +37,26 @@
                 </mat-autocomplete>
             </mat-form-field>
             <mat-form-field appearance="outline">
-                <mat-label>Домашняя команда</mat-label>
-                <mat-select>
+                <mat-label>Домашняя команда *</mat-label>
+                <mat-select formControlName="team">
+                    <mat-select-trigger>{{signupForm.value.team.team}}</mat-select-trigger>
                     <mat-option *ngFor="let option of teamsList"
                         [value]="option">
-                        {{option.name}}
-                        <span class="mat-option-district">{{option.location.refDistricts.name}}</span>
+                        {{option.team}}
+                        <span class="mat-option-district">{{option.district}}</span>
                     </mat-option>
                 </mat-select>                
             </mat-form-field>
         </div>
         <div class="form-row row jcsb">
             <mat-form-field appearance="outline" class="two-cntrl">
-                <mat-label>Телефон</mat-label>
-                <input matInput required
-                    prefix="+7" mask="(000) 000 00 00"
-                    name="phone" [(ngModel)]="signupDto.phone">
+                <mat-label>Телефон *</mat-label>
+                <input matInput prefix="+7" mask="(000) 000 00 00"
+                formControlName="phone">
             </mat-form-field>
             <mat-form-field appearance="outline" class="two-cntrl">
-                <mat-label>Дата рождения</mat-label>
-                <input matInput [matDatepicker]="datepicker" required
-                name="birthday"    [(ngModel)]="signupDto.birthday">
-                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-label>Дата рождения *</mat-label>
+                <input matInput [matDatepicker]="datepicker" formControlName="birthday">                
                 <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
                 <mat-datepicker #datepicker>
                     <mat-datepicker-actions>
@@ -74,24 +68,24 @@
             </mat-form-field>
         </div>
         <div class="form-row form-row--radio">
-            <label>Пол:</label>
-            <mat-radio-group required [(ngModel)]="signupDto.sex" name="sex">
-                <mat-radio-button color="primary" value="m">Муж.</mat-radio-button>
-                <mat-radio-button color="primary" value="w">Жен.</mat-radio-button>
-            </mat-radio-group>
+            <label [ngClass]="{'invalid': isControlInvalid('sex')}">Пол *</label>
+            <mat-radio-group formControlName="sex">
+                <mat-radio-button color="primary" value="Мужской">Муж.</mat-radio-button>
+                <mat-radio-button color="primary" value="Женский">Жен.</mat-radio-button>
+            </mat-radio-group>            
         </div>
         <div class="form-row row jcsb">
             <mat-form-field appearance="outline">
-                <mat-label>Пароль</mat-label>
-                <input matInput type="password" name="pass" [(ngModel)]="signupDto.pass">
+                <mat-label>Пароль *</mat-label>
+                <input matInput type="password" formControlName="password">
             </mat-form-field>
             <mat-form-field appearance="outline">
-                <mat-label>Повторите пароль</mat-label>
-                <input matInput type="password" name="rePass" [(ngModel)]="signupDto.rePass">
+                <mat-label>Повторите пароль *</mat-label>
+                <input matInput type="password" formControlName="rePass">
             </mat-form-field>
         </div>
         <div class="form-buttons row jcsb">
             <button mat-stroked-button color="primary" type="submit">Сохранить</button>
         </div>
-    </div>
+    </div>    
 </form>

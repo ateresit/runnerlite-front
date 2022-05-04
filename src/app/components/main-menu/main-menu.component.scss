@@ -41,7 +41,7 @@
             color: #32302b;
             transition: .25s ease;
         }
-        &:hover {
+        &:hover, &.active {
             background: var(--active_color);
             > a { color: #fff; }
             .sub-menu__wrapper {
