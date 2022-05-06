@@ -1,0 +1,28 @@
+<h1>Вход</h1>
+<form [formGroup]="loginForm" (submit)="login()">
+    <div class="form-container">    
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>e-mail</mat-label>
+                <input matInput placeholder="pat@example.com" formControlName="email" required>
+                <mat-error *ngIf="isControlInvalid('email')">Введите e-mail</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>пароль</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+                <button mat-icon-button matSuffix (click)="hide= !hide"
+                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="isControlInvalid('password')">Введите пароль</mat-error>                
+            </mat-form-field>
+        </div>
+        <div class="form-buttons row jcsb">
+            <button mat-stroked-button color="primary">Войти</button>
+            <a mat-stroked-button target="_blank" routerLink="/signup">Регистрация</a>
+        </div>
+        <div class="form-font invalid" *ngIf="isError" style="padding-top:1.1em">Authentication error. Check login and password.</div>
+    </div>
+</form>
