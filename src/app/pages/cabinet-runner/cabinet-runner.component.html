@@ -1,14 +1,194 @@
-<div class="row">
-    <aside>
-        <div class="profile-info form-font">
-            <div class="profile-info__image">
-                <img src="assets/images/128.png" alt="">
+<div class="container content__row">
+    <div class="row">
+        <aside class="aside">
+            <div class="profile-info row form-font abmb">
+                <div class="profile-info__image">
+                    <img class="img-contain" src="assets/images/128.png" alt="">
+                </div>
+                <div class="profile-info__name">
+                    НИК или ФИО бегуна
+                </div>
+                <a href="" class="nw-button nw-button--invert">Edit profile</a>
             </div>
-            <div class="profile-info__name">
-                НИК или ФИО бегуна
+            <mat-expansion-panel class="abmb">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Результат забега
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="running-info">
+                    <p><b>Забег №1 11.05.2022</b></p>
+                    <div class="running-info__team row">
+                        <div class="running-info__image">
+                            <img class="img-contain" src="assets/images/128.png"
+                                alt="">
+                        </div>
+                        <span>Команда</span>
+                    </div>
+                    <p>Время: 1час 52сек</p>
+                    <p>Место: 1</p>
+                </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel class="abmb">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        История волонтёра
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="running-info">
+                    <p><b>Забег №1 11.05.2022</b></p>
+                    <p><b>Позици волонтёра</b></p>
+                    <div class="running-info__team row">
+                        <div class="running-info__image">
+                            <img class="img-contain" src="assets/images/128.png"
+                                alt="">
+                        </div>
+                        <span>Команда</span>
+                    </div>
+                    <p>Исторический список позиций волонтера?</p>
+                    <p>Кол-во принятого бегуном участия в позиции волонтера?</p>
+                </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel class="abmb">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Мои достижения
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="running-info">
+                    <p>Забег №1 11.05.2022</p>
+                    <div class="running-info__team row">
+                        <div class="running-info__image">
+                            <img class="img-contain" src="assets/images/128.png"
+                                alt="">
+                        </div>
+                        <span>Команда</span>
+                    </div>
+                    <div class="running-info__team row">
+                        <div class="running-info__image">
+                            <img class="img-contain" src="assets/images/128.png"
+                                alt="">
+                        </div>
+                        <span>Достижение</span>
+                    </div>
+                    <p>Кол-во или время достижения</p>
+                </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel class="abmb">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Мои подписки
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="running-info">
+                    <div class="running-info__team row">
+                        <div class="running-info__image">
+                            <img class="img-contain" src="assets/images/128.png"
+                                alt="">
+                        </div>
+                        <span>Команда</span>
+                    </div>
+                    <ul>
+                        <li>Подписка 1</li>
+                        <li>Подписка 2</li>
+                        <li>Подписка 3</li>
+                    </ul>
+                </div>
+            </mat-expansion-panel>
+        </aside>
+        <div class="content">
+            <div class="lk-services row jcsb">
+                <div class="service-block">
+                    <a class="nw-button nw-button--invert" href="">Планировать
+                        забег</a>
+                    <div class="service-block__content">
+                        <ul>
+                            <li>Забег №21 - 23 мая</li>
+                            <li>Забег №22 - 30 мая</li>
+                        </ul>
+                    </div>
+                    <mat-calendar [dateClass]="dateClass()"></mat-calendar>
+                </div>
+                <div class="service-block">
+                    <a class="nw-button nw-button--invert" href="">Волонтёрить</a>
+                    <div class="service-block__content">
+                        <p style="font-size:.8em">Забег №21 - 23 мая, требуются:</p>
+                        <ul>
+                            <li>Секундомер - 1 чел.</li>
+                            <li>Замыкающий - 1 чел.</li>
+                        </ul>
+                    </div>
+                    <mat-calendar [dateClass]="dateClass()"></mat-calendar>
+                </div>
+                <div class="service-block">
+                    <a class="nw-button nw-button--invert" href="">Команда</a>
+                    <div class="service-block__content">
+                        <div class="running-info__team row jcsb">
+                            <span>Команда</span>
+                            <div class="running-info__image">
+                                <img class="img-contain"
+                                    src="assets/images/128.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="map-cnt">
+                        <ya-map [center]="[55.751952, 37.600739]" [zoom]="12">
+                            <ya-placemark [geometry]="[55.751952, 37.600739]"></ya-placemark>
+                        </ya-map>
+                    </div>
+                </div>
             </div>
-            <a href="" class="nw-button">Edit profile</a>
+            <div class="news row ptb">
+                <div class="news-box col">
+                    <div class="news-box__title">EVENTS</div>
+                    <div class="news-box__image">
+                        <img src="assets/images/news/Layer 34.png" alt="">
+                    </div>
+                    <p class="text"><span class="red">VESTIBULUM LIBERO NISL
+                            PORTA VEL</span><br>
+                        PRAESENT VESTIBULUM MOLESTIE LACUS. AENEAN NONUMMY
+                        HENDRERIT MAURIS. PHASELLUS PORTA. FUSCE ST VARIUS MI.
+                        CUM SOCIIS NATOQUE PENATIBUS ET MAG.</p>
+                    <a class="nw-button" href="">Read More</a>
+                </div>
+                <div class="news-box col">
+                    <div class="news-box__title">WELCOME</div>
+                    <div class="news-box__image">
+                        <img src="assets/images/news/Layer 35.png" alt="">
+                    </div>
+                    <p class="text"><span class="red">VESTIBULUM LIBERO NISL
+                            PORTA VEL</span><br>
+                        PRAESENT VESTIBULUM MOLESTIE LACUS. AENEAN NONUMMY
+                        HENDRERIT MAURIS. PHASELLUS PORTA. FUSCE ST VARIUS MI.
+                        CUM SOCIIS NATOQUE PENATIBUS ET MAG.</p>
+                    <a class="nw-button" href="">Read More</a>
+                </div>
+                <div class="news-box col">
+                    <div class="news-box__title">TRAINING</div>
+                    <div class="news-box__image">
+                        <img src="assets/images/news/Layer 35 copy.png" alt="">
+                    </div>
+                    <p class="text"><span class="red">VESTIBULUM LIBERO NISL
+                            PORTA VEL</span><br>
+                        PRAESENT VESTIBULUM MOLESTIE LACUS. AENEAN NONUMMY
+                        HENDRERIT MAURIS. PHASELLUS PORTA. FUSCE ST VARIUS MI.
+                        CUM SOCIIS NATOQUE PENATIBUS ET MAG.</p>
+                    <a class="nw-button" href="">Read More</a>
+                </div>
+                <div class="news-box col">
+                    <div class="news-box__title">TRAINING</div>
+                    <div class="news-box__image">
+                        <img src="assets/images/news/Layer 35 copy.png" alt="">
+                    </div>
+                    <p class="text"><span class="red">VESTIBULUM LIBERO NISL
+                            PORTA VEL</span><br>
+                        PRAESENT VESTIBULUM MOLESTIE LACUS. AENEAN NONUMMY
+                        HENDRERIT MAURIS. PHASELLUS PORTA. FUSCE ST VARIUS MI.
+                        CUM SOCIIS NATOQUE PENATIBUS ET MAG.</p>
+                    <a class="nw-button" href="">Read More</a>
+                </div>
+            </div>
         </div>
-    </aside>
-</div>
+    </div>
 
+</div>

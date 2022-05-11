@@ -23,6 +23,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { DateAdapter, MatNativeDateModule, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MAT_MOMENT_DATE_FORMATS, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 
 import { IndexComponent } from './pages/index/index.component';
 import { SignupComponent } from './pages/signup/signup.component';
@@ -59,7 +61,9 @@ const maskConfig: Partial<IConfig> = {
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatExpansionModule,
     NgxMaskModule.forRoot(maskConfig),
+    AngularYandexMapsModule,
     HttpClientModule
   ],
   providers: [
