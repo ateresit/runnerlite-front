@@ -1,0 +1,65 @@
+<mat-expansion-panel expanded="true">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            Планирование забегов
+        </mat-panel-title>
+    </mat-expansion-panel-header>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="runningDate">
+            <th mat-header-cell *matHeaderCellDef>Дата</th>
+            <td mat-cell *matCellDef="let element">{{dateToString(element.runningDate)}}</td>
+        </ng-container>
+        <ng-container matColumnDef="runningNumber">
+            <th mat-header-cell *matHeaderCellDef>Номер</th>
+            <td mat-cell *matCellDef="let element">{{element.runningNumber}}</td>
+        </ng-container>
+        <ng-container matColumnDef="runningStatus">
+            <th mat-header-cell *matHeaderCellDef>Статус забега</th>
+            <td mat-cell *matCellDef="let element">{{element.runningStatus}}</td>
+        </ng-container>
+        <ng-container matColumnDef="participationStatus">
+            <th mat-header-cell *matHeaderCellDef>Мой статус</th>
+            <td mat-cell *matCellDef="let element">
+                <div *ngIf="element.participationStatus">Участник</div>
+                <div *ngIf="element.positionName">{{element.positionName}}
+                    <span class="app-status">{{getAppStatus(element.statusVolunteer)}}</span>
+                </div>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="runnersCount">
+            <th mat-header-cell *matHeaderCellDef>Бегуны</th>
+            <td mat-cell *matCellDef="let element">{{element.runnersCount}}</td>
+        </ng-container>
+        <ng-container matColumnDef="volunteersCount">
+            <th mat-header-cell *matHeaderCellDef>Волонтёры</th>
+            <td mat-cell *matCellDef="let element">{{element.volunteersCount}}</td>
+        </ng-container>
+        <ng-container matColumnDef="buttons">
+            <th mat-header-cell *matHeaderCellDef>Запрос на участие</th>
+            <td mat-cell *matCellDef="let element" class="run-table-buttons">
+                <div *ngIf="element.participationStatus === 0 &&
+                    element.statusVolunteer == undefined">
+                    <button (click)="insertRunner(element.teamsRunningCountId)"
+                        mat-button color="primary">Участник</button>
+                    <button mat-button [matMenuTriggerFor]="menu" color="accent"
+                        (click)="menuOpened(element.teamsRunningCountId)">Волонтёр</button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item
+                            *ngFor="let node of volunteerList"
+                            (click)="insertVolunteer(element.teamsRunningCountId,
+                            node.volunteersPositionId)">{{ node.positionName }}</button>
+                    </mat-menu>
+                </div>
+                <button *ngIf="element.participationStatus === 1"
+                    (click)="deleteRunner(element.runnerCountId)"
+                    mat-button color="warn">Отменить</button>
+                <button *ngIf="element.statusVolunteer != undefined"
+                    (click)="deleteVolunteer(element.volunteersId)"
+                    mat-button color="warn">Отменить</button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="rowClick(row.teamsRunningCountId)"></tr>
+    </table>
+</mat-expansion-panel>

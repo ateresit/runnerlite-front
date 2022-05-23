@@ -52,9 +52,6 @@ $yellow-color: #f0bc6e;
     padding: 0;    
 }
 html, body { height: 100%;}
-ul {
-    list-style-position: inside;
-}
 body {
     /*font-family: "Righteous";*/
     font-family: 'Roboto Slab', serif;
@@ -371,7 +368,7 @@ body {
         border-radius: 100%;        
     }
 }
-.abmb:not(:last-child) {
+.abmb {
     margin-bottom: 1em;
 }
 .content {
@@ -392,6 +389,17 @@ body {
     }
 }
 .map-cnt {
+    width: 100%;
     height: 19em;
     margin-top: 1em;
+}
+.ymaps-2-1-79-map {
+    max-width: 100%!important;
+}
+.aside-list {
+    padding-left: 1.2em;
+    font-size: .8em;
+}
+.mat-table {
+    width: 100%;
 }

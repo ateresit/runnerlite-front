@@ -1,103 +1,16 @@
 <div class="container content__row">
     <div class="row">
-        <aside class="aside">
-            <div class="profile-info row form-font abmb">
-                <div class="profile-info__image">
-                    <img class="img-contain" src="assets/images/128.png" alt="">
-                </div>
-                <div class="profile-info__name">
-                    НИК или ФИО бегуна
-                </div>
-                <a href="" class="nw-button nw-button--invert">Edit profile</a>
-            </div>
-            <mat-expansion-panel class="abmb">
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        Результат забега
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-                <div class="running-info">
-                    <p><b>Забег №1 11.05.2022</b></p>
-                    <div class="running-info__team row">
-                        <div class="running-info__image">
-                            <img class="img-contain" src="assets/images/128.png"
-                                alt="">
-                        </div>
-                        <span>Команда</span>
-                    </div>
-                    <p>Время: 1час 52сек</p>
-                    <p>Место: 1</p>
-                </div>
-            </mat-expansion-panel>
-            <mat-expansion-panel class="abmb">
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        История волонтёра
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-                <div class="running-info">
-                    <p><b>Забег №1 11.05.2022</b></p>
-                    <p><b>Позици волонтёра</b></p>
-                    <div class="running-info__team row">
-                        <div class="running-info__image">
-                            <img class="img-contain" src="assets/images/128.png"
-                                alt="">
-                        </div>
-                        <span>Команда</span>
-                    </div>
-                    <p>Исторический список позиций волонтера?</p>
-                    <p>Кол-во принятого бегуном участия в позиции волонтера?</p>
-                </div>
-            </mat-expansion-panel>
-            <mat-expansion-panel class="abmb">
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        Мои достижения
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-                <div class="running-info">
-                    <p>Забег №1 11.05.2022</p>
-                    <div class="running-info__team row">
-                        <div class="running-info__image">
-                            <img class="img-contain" src="assets/images/128.png"
-                                alt="">
-                        </div>
-                        <span>Команда</span>
-                    </div>
-                    <div class="running-info__team row">
-                        <div class="running-info__image">
-                            <img class="img-contain" src="assets/images/128.png"
-                                alt="">
-                        </div>
-                        <span>Достижение</span>
-                    </div>
-                    <p>Кол-во или время достижения</p>
-                </div>
-            </mat-expansion-panel>
-            <mat-expansion-panel class="abmb">
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        Мои подписки
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-                <div class="running-info">
-                    <div class="running-info__team row">
-                        <div class="running-info__image">
-                            <img class="img-contain" src="assets/images/128.png"
-                                alt="">
-                        </div>
-                        <span>Команда</span>
-                    </div>
-                    <ul>
-                        <li>Подписка 1</li>
-                        <li>Подписка 2</li>
-                        <li>Подписка 3</li>
-                    </ul>
-                </div>
-            </mat-expansion-panel>
+        <aside class="aside">            
+            <app-user-info></app-user-info>
+            <app-runners-last-result></app-runners-last-result>
+            <app-volunteer-last-history></app-volunteer-last-history>
+            <app-achievements-history></app-achievements-history>
+            <app-subscriptions-list></app-subscriptions-list>            
         </aside>
         <div class="content">
-            <div class="lk-services row jcsb">
+            <app-plan-run></app-plan-run>
+            <app-plan-volunteer></app-plan-volunteer>            
+            <div class="lk-services row jcsb" style="margin-top: 1.5em">
                 <div class="service-block">
                     <a class="nw-button nw-button--invert" href="">Планировать
                         забег</a>
@@ -137,8 +50,8 @@
                         </ya-map>
                     </div>
                 </div>
-            </div>
-            <div class="news row ptb">
+            </div>            
+            <div class="news row">
                 <div class="news-box col">
                     <div class="news-box__title">EVENTS</div>
                     <div class="news-box__image">

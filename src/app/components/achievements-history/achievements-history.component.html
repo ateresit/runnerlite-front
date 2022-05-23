@@ -1,0 +1,27 @@
+<div class="abmb">
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Мои достижения
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="running-info" *ngFor="let item of list">
+            <p>Забег №{{item.runningNumber}} {{dateToString(item.runningDate)}}</p>
+            <div class="running-info__team row">
+                <div class="running-info__image">                    
+                    <img *ngIf="item.teamsId" class="img-contain" src="api/v1/team-picture/{{item.teamsId}}" alt="">
+                </div>
+                <span>{{item.teamsName}}</span>
+            </div>
+            <div class="running-info__team row">
+                <div class="running-info__image">
+                    <img class="img-contain" src="assets/images/128.png"
+                        alt="">
+                </div>
+                <span>{{item.achievementName}}</span>
+            </div>
+            <p>Время: {{secondsToTimeString(item.result)}}</p>
+            <p>Место: {{item.finishPlace}}</p>
+        </div>
+    </mat-expansion-panel>
+</div>

@@ -25,15 +25,23 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MAT_MOMENT_DATE_FORMATS, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { AngularYandexMapsModule } from 'angular8-yandex-maps';
-
+import { MatTableModule } from '@angular/material/table';
 import { IndexComponent } from './pages/index/index.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { LoginComponent } from './pages/login/login.component';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { HttpClientModule } from "@angular/common/http";
 //import { CustomDateAdapter } from './helpers/custom.data.adapter';
 import { CabinetRunnerComponent } from './pages/cabinet-runner/cabinet-runner.component';
-import { from } from 'rxjs';
+
+import { RunnersLastResultComponent } from './components/runners-last-result/runners-last-result.component';
+import { VolunteerLastHistoryComponent } from './components/volunteer-last-history/volunteer-last-history.component';
+import { AchievementsHistoryComponent } from './components/achievements-history/achievements-history.component';
+import { SubscriptionsListComponent } from './components/subscriptions-list/subscriptions-list.component';
+import { PlanRunComponent } from './components/plan-run/plan-run.component';
+import { PlanVolunteerComponent } from './components/plan-volunteer/plan-volunteer.component';
+import { UserInfoComponent } from './components/user-info/user-info.component';
 
 
 const maskConfig: Partial<IConfig> = {
@@ -42,7 +50,7 @@ const maskConfig: Partial<IConfig> = {
 @NgModule({
   declarations: [
     AppComponent,
-    SliderComponent, MainMenuComponent, IndexComponent, LoginComponent, SignupComponent, CabinetRunnerComponent
+    SliderComponent, MainMenuComponent, IndexComponent, LoginComponent, SignupComponent, CabinetRunnerComponent, RunnersLastResultComponent, VolunteerLastHistoryComponent, AchievementsHistoryComponent, SubscriptionsListComponent, PlanRunComponent, PlanVolunteerComponent, UserInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -62,6 +70,8 @@ const maskConfig: Partial<IConfig> = {
     MatDatepickerModule,
     MatNativeDateModule,
     MatExpansionModule,
+    MatTableModule,
+    MatMenuModule,    
     NgxMaskModule.forRoot(maskConfig),
     AngularYandexMapsModule,
     HttpClientModule
