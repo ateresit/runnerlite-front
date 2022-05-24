@@ -1,91 +1,97 @@
-<h1>Регистрация</h1>
-<form [formGroup]="signupForm" (submit)="onSubmit()">
-    <div class="form-container form-container--half">
-        <div class="form-row">
-            <mat-form-field appearance="outline" class="full-width">
-                <mat-label>e-mail *</mat-label>
-                <input matInput formControlName="email" placeholder="pat@example.com">                
-            </mat-form-field>
+<div class="container">
+    <h1>Регистрация</h1>
+    <form [formGroup]="signupForm" (submit)="onSubmit()">
+        <div class="form-container form-container--half">
+            <div class="form-row">
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>e-mail *</mat-label>
+                    <input matInput formControlName="email"
+                        placeholder="pat@example.com">
+                </mat-form-field>
+            </div>
+            <div class="form-row row jcsb">
+                <mat-form-field appearance="outline">
+                    <mat-label>ФИО *</mat-label>
+                    <input matInput formControlName="fullName">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Никнейм</mat-label>
+                    <input matInput formControlName="nickName">
+                </mat-form-field>
+            </div>
+            <div class="form-row row jcsb">
+                <mat-form-field appearance="outline">
+                    <mat-label>Город *</mat-label>
+                    <input type="text"
+                        placeholder="Pick one"
+                        aria-label="Город"
+                        matInput
+                        formControlName="city"
+                        [matAutocomplete]="autoCity"
+                        autocomplete="off">
+                    <mat-autocomplete autoActiveFirstOption
+                        (optionSelected)="changeCity($event)"
+                        [displayWith]="displayCity"
+                        #autoCity="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredCities |
+                            async"
+                            [value]="option">
+                            {{option.name}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Домашняя команда *</mat-label>
+                    <mat-select formControlName="team">
+                        <mat-select-trigger>{{signupForm.value.team.team}}</mat-select-trigger>
+                        <mat-option *ngFor="let option of teamsList"
+                            [value]="option">
+                            {{option.team}}
+                            <span class="mat-option-district">{{option.district}}</span>
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="form-row row jcsb">
+                <mat-form-field appearance="outline" class="two-cntrl">
+                    <mat-label>Телефон *</mat-label>
+                    <input matInput prefix="+7" mask="(000) 000 00 00"
+                        formControlName="phone">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="two-cntrl">
+                    <mat-label>Дата рождения *</mat-label>
+                    <input matInput [matDatepicker]="datepicker"
+                        formControlName="birthday">
+                    <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                    <mat-datepicker #datepicker>
+                        <mat-datepicker-actions>
+                            <button mat-button matDatepickerCancel>Cancel</button>
+                            <button mat-raised-button color="primary"
+                                matDatepickerApply>Apply</button>
+                        </mat-datepicker-actions>
+                    </mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="form-row form-row--radio">
+                <label [ngClass]="{'invalid': isControlInvalid('sex')}">Пол *</label>
+                <mat-radio-group formControlName="sex">
+                    <mat-radio-button color="primary" value="Мужской">Муж.</mat-radio-button>
+                    <mat-radio-button color="primary" value="Женский">Жен.</mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <div class="form-row row jcsb">
+                <mat-form-field appearance="outline">
+                    <mat-label>Пароль *</mat-label>
+                    <input matInput type="password" formControlName="password">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Повторите пароль *</mat-label>
+                    <input matInput type="password" formControlName="rePass">
+                </mat-form-field>
+            </div>
+            <div class="form-buttons row jcsb">
+                <button mat-stroked-button color="primary" type="submit">Сохранить</button>
+            </div>
         </div>
-        <div class="form-row row jcsb">
-            <mat-form-field appearance="outline">
-                <mat-label>ФИО *</mat-label>
-                <input matInput formControlName="fullName">
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>Никнейм</mat-label>
-                <input matInput formControlName="nickName">
-            </mat-form-field>
-        </div>
-        <div class="form-row row jcsb">
-            <mat-form-field appearance="outline">
-                <mat-label>Город *</mat-label>
-                <input type="text"
-                    placeholder="Pick one"
-                    aria-label="Город"
-                    matInput                    
-                    formControlName="city"
-                    [matAutocomplete]="autoCity"
-                    autocomplete="off">
-                <mat-autocomplete autoActiveFirstOption (optionSelected)="changeCity($event)"
-                    [displayWith]="displayCity"
-                    #autoCity="matAutocomplete">
-                    <mat-option *ngFor="let option of filteredCities | async"                        
-                        [value]="option">
-                        {{option.name}}
-                    </mat-option>
-                </mat-autocomplete>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>Домашняя команда *</mat-label>
-                <mat-select formControlName="team">
-                    <mat-select-trigger>{{signupForm.value.team.team}}</mat-select-trigger>
-                    <mat-option *ngFor="let option of teamsList"
-                        [value]="option">
-                        {{option.team}}
-                        <span class="mat-option-district">{{option.district}}</span>
-                    </mat-option>
-                </mat-select>                
-            </mat-form-field>
-        </div>
-        <div class="form-row row jcsb">
-            <mat-form-field appearance="outline" class="two-cntrl">
-                <mat-label>Телефон *</mat-label>
-                <input matInput prefix="+7" mask="(000) 000 00 00"
-                formControlName="phone">
-            </mat-form-field>
-            <mat-form-field appearance="outline" class="two-cntrl">
-                <mat-label>Дата рождения *</mat-label>
-                <input matInput [matDatepicker]="datepicker" formControlName="birthday">                
-                <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
-                <mat-datepicker #datepicker>
-                    <mat-datepicker-actions>
-                        <button mat-button matDatepickerCancel>Cancel</button>
-                        <button mat-raised-button color="primary"
-                            matDatepickerApply>Apply</button>
-                    </mat-datepicker-actions>
-                </mat-datepicker>
-            </mat-form-field>
-        </div>
-        <div class="form-row form-row--radio">
-            <label [ngClass]="{'invalid': isControlInvalid('sex')}">Пол *</label>
-            <mat-radio-group formControlName="sex">
-                <mat-radio-button color="primary" value="Мужской">Муж.</mat-radio-button>
-                <mat-radio-button color="primary" value="Женский">Жен.</mat-radio-button>
-            </mat-radio-group>            
-        </div>
-        <div class="form-row row jcsb">
-            <mat-form-field appearance="outline">
-                <mat-label>Пароль *</mat-label>
-                <input matInput type="password" formControlName="password">
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>Повторите пароль *</mat-label>
-                <input matInput type="password" formControlName="rePass">
-            </mat-form-field>
-        </div>
-        <div class="form-buttons row jcsb">
-            <button mat-stroked-button color="primary" type="submit">Сохранить</button>
-        </div>
-    </div>    
-</form>
+    </form>
+</div>

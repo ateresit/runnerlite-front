@@ -7,7 +7,6 @@ import { ConfirmedValidator } from 'src/app/helpers/confirmed.validator';
 import { CitiesDto } from 'src/app/model/cities-dto';
 import { SignupDto } from 'src/app/model/signup-dto';
 
-import { TeamDto } from 'src/app/model/team-dto';
 import { TeamWithDistrDto } from 'src/app/model/team-with-distr-dto';
 import { AuthService } from 'src/app/services/auth.service';
 import { CitiesService } from 'src/app/services/cities.service';

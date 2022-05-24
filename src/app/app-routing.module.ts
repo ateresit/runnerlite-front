@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './helpers/auth.guard';
 import { CabinetRunnerComponent } from './pages/cabinet-runner/cabinet-runner.component';
 import { IndexComponent } from './pages/index/index.component';
 import { LoginComponent, LOGIN_URL } from './pages/login/login.component';
@@ -49,6 +50,7 @@ const routes: Routes = [
   {
     path: 'cabinet',
     component: CabinetRunnerComponent,
+    canActivate: [AuthGuard],
     data: {
       title: 'Личный кабинет',
       breadcrumb: [
