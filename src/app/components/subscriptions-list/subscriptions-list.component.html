@@ -1,0 +1,20 @@
+<div class="abmb">
+    <mat-expansion-panel class="abmb">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Мои подписки
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="running-info" *ngFor="let subscr of list | keyvalue">
+            <div class="running-info__team row">
+                <div class="running-info__image">                    
+                    <img *ngIf="subscr.value.teamsId" class="img-contain" src="api/v1/team-picture/{{subscr.value.teamsId}}" alt="">
+                </div>
+                <span>{{subscr.key}}</span>
+            </div>
+            <ul class="aside-list">
+                <li *ngFor="let item of subscr.value.subscrList">{{item}}</li>                
+            </ul>                        
+        </div>
+    </mat-expansion-panel>
+</div>

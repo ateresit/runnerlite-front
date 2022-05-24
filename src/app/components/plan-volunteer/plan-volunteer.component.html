@@ -1,0 +1,42 @@
+<mat-expansion-panel expanded="true">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            Волонтёры команды
+        </mat-panel-title>
+    </mat-expansion-panel-header>
+    <p>{{currentRun}}</p>
+    <table mat-table [dataSource]="volunteerList" class="mat-elevation-z8">
+        <ng-container matColumnDef="positionName">
+            <th mat-header-cell *matHeaderCellDef>Позиция</th>
+            <td mat-cell *matCellDef="let element">{{element.positionName}}</td>
+        </ng-container>
+        <ng-container matColumnDef="positionRequired">
+            <th mat-header-cell *matHeaderCellDef>Требуется</th>
+            <td mat-cell *matCellDef="let element">{{element.positionRequired}}</td>
+        </ng-container>
+        <ng-container matColumnDef="fullNameVolunteer">
+            <th mat-header-cell *matHeaderCellDef>Волонтёр</th>
+            <td mat-cell *matCellDef="let element">
+                <ul>
+                    <li *ngFor="let item of element.fullNameVolunteer">{{item}}</li>
+                </ul>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="buttons">
+            <th mat-header-cell *matHeaderCellDef>Запрос на участие</th>
+            <td mat-cell *matCellDef="let element">
+                <div *ngIf="!element.statusRunner">
+                    <button *ngIf="element.id"
+                        (click)="deleteVolunteer(element.id)"
+                        mat-button color="warn">Отменить</button>
+                    <button *ngIf="!statusVolunteer"
+                        (click)="insertVolunteer(element.volunteersPositionId)"
+                        mat-button color="accent">Заявиться</button>
+                </div>                
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</mat-expansion-panel>
