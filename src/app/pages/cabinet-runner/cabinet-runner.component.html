@@ -3,13 +3,11 @@
         <aside class="aside">            
             <app-user-info></app-user-info>
             <app-runners-last-result></app-runners-last-result>
-            <app-volunteer-last-history></app-volunteer-last-history>
+            <app-volunteer-last-history [source]="volunteerHistoryDataSource | async"></app-volunteer-last-history>
             <app-achievements-history></app-achievements-history>
             <app-subscriptions-list></app-subscriptions-list>            
         </aside>
         <div class="content">
-            <app-plan-run></app-plan-run>
-            <app-plan-volunteer></app-plan-volunteer>            
             <div class="lk-services row jcsb" style="margin-top: 1.5em">
                 <div class="service-block">
                     <a class="nw-button nw-button--invert" href="">Планировать
@@ -50,7 +48,9 @@
                         </ya-map>
                     </div>
                 </div>
-            </div>            
+            </div>
+            <app-plan-run></app-plan-run>
+            <app-plan-volunteer></app-plan-volunteer>
             <div class="news row">
                 <div class="news-box col">
                     <div class="news-box__title">EVENTS</div>

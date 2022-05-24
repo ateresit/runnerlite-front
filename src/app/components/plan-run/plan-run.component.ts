@@ -4,6 +4,7 @@ import { dateToString } from 'src/app/helpers/date.helper';
 import { PlanVolunteerDto } from 'src/app/model/plan-volunteer-dto';
 import { PlanVolunteerService } from 'src/app/services/plan.volunteer.service';
 import { PlanRunService } from 'src/app/services/plan.run.service';
+import { RunTableInfo } from 'src/app/model/run-table-info';
 
 
 @Component({
@@ -32,13 +33,16 @@ export class PlanRunComponent implements OnInit {
 
   ngOnInit(): void {
     this.refreshDataSource();
+    this.volunteerService.needRefresh$.subscribe(r => {
+      this.refreshDataSource();
+    })
   }
 
   private refreshDataSource() {
     this.runService.getPlanRun().subscribe(result => {
       this.dataSource = result;
-      if (result.length) {
-        this.volunteerService.changeTeamsRunningCountId(result[0].teamsRunningCountId);
+      if (result.length) {        
+        this.volunteerService.changeRunTableInfo(new RunTableInfo(result[0].teamsRunningCountId, result[0].statusVolunteer !== null));
       }
     }, error => {
       console.log(error);
@@ -99,8 +103,8 @@ export class PlanRunComponent implements OnInit {
     return result;
   }
 
-  rowClick(teamsRunningCountId: number) {
-    this.volunteerService.changeTeamsRunningCountId(teamsRunningCountId);    
+  rowClick(teamsRunningCountId: number, statusVolunteer: number) {    
+    this.volunteerService.changeRunTableInfo(new RunTableInfo(teamsRunningCountId, statusVolunteer !== null));    
   }
 
 }

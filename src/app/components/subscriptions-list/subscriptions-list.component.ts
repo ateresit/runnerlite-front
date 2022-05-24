@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, SubscriptionLike } from 'rxjs';
 import { SubscrRowDto } from 'src/app/model/subscr-row-dto';
 import { CabinetService } from 'src/app/services/cabinet.service';
 
@@ -15,8 +16,10 @@ export class SubscriptionsListComponent implements OnInit {
 
   list = new Map<String, SubscrRowDto>();
 
+  subscribe!: SubscriptionLike;
+
   ngOnInit(): void {
-    this.service.getSubscriptions().subscribe(result => {
+    this.subscribe = this.service.getSubscriptions().subscribe(result => {
       result.map(it => {        
         if (this.list.has(it.teamsName)) {
           this.list.get(it.teamsName)?.subscrList.push(it.nameSubscription)
@@ -27,6 +30,14 @@ export class SubscriptionsListComponent implements OnInit {
     }, error => {
       console.log(error);
     })
+  }
+
+  ngOnDestroy() {
+    debugger;
+    if (this.subscribe) {
+      
+      this.subscribe.unsubscribe();      
+    }
   }
  
 

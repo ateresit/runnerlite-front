@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { PlanVolunteerDto } from 'src/app/model/plan-volunteer-dto';
 import { PlanVolunteerService } from 'src/app/services/plan.volunteer.service';
-
+import { dateToString } from 'src/app/helpers/date.helper';
 @Component({
   selector: 'app-plan-volunteer',
   templateUrl: './plan-volunteer.component.html',
@@ -26,8 +26,11 @@ export class PlanVolunteerComponent implements OnInit {
   private subs!: Subscription;
 
   ngOnInit(): void {
-    this.subs = this.volunteerService.tRCId$.subscribe(ti => {
-      this.refreshDataSource(ti);
+    this.subs = this.volunteerService.runTableInfo$.subscribe(r => {
+      this.teamsRunningCountId = r.teamsRunningCountId;
+      this.statusVolunteer = r.statusVolunteer;
+      this.refreshDataSource();
+      
     })    
   }
 
@@ -35,12 +38,20 @@ export class PlanVolunteerComponent implements OnInit {
     this.subs.unsubscribe();
   }
 
+  statusVolunteer: boolean = true;
   teamsRunningCountId!: number;
 
-  private refreshDataSource(_teamsRunningCountId: number) {
-    this.teamsRunningCountId = _teamsRunningCountId;
-    this.volunteerService.getPlanVolunteer(_teamsRunningCountId).subscribe(r => {
+  currentRun: string;
+
+
+
+  private refreshDataSource() {    
+    this.volunteerService.getPlanVolunteer(this.teamsRunningCountId).subscribe(r => {
       this.volunteerList = r;
+      if (this.volunteerList.length) {
+        this.currentRun = `Забег №${this.volunteerList[0].runningNumber} Дата: ${dateToString(this.volunteerList[0].runningDate)}`;
+      }
+      
     }, error => {
       console.log(error);
     });
@@ -48,7 +59,9 @@ export class PlanVolunteerComponent implements OnInit {
 
   insertVolunteer(volunteersPosition: number) {    
     this.volunteerService.insertVolunteer(this.teamsRunningCountId, volunteersPosition).subscribe(r => {
-      this.refreshDataSource(this.teamsRunningCountId);
+      this.statusVolunteer = true;
+      this.refreshDataSource();
+      this.volunteerService.changeNeedRefresh(true);
     }, error => {
       console.log(error);
     });
@@ -56,7 +69,9 @@ export class PlanVolunteerComponent implements OnInit {
   
   deleteVolunteer(volunteersId: number) {    
     this.volunteerService.deleteVolunteer(volunteersId).subscribe(r => {
-      this.refreshDataSource(this.teamsRunningCountId);
+      this.statusVolunteer = false;
+      this.refreshDataSource();
+      this.volunteerService.changeNeedRefresh(true);
     }, error => {
       console.log(error);
     })

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AchievementsDto } from 'src/app/model/achievements-dto';
 import { CabinetService } from 'src/app/services/cabinet.service';
 import { dateToString, secondsToTimeString } from 'src/app/helpers/date.helper';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -11,18 +12,14 @@ import { dateToString, secondsToTimeString } from 'src/app/helpers/date.helper';
 })
 export class AchievementsHistoryComponent implements OnInit {
 
-  list: AchievementsDto[] = [];
-
   constructor(
     private service : CabinetService
   ) { }
 
-  ngOnInit(): void {
-    this.service.getAchievements().subscribe(result => {
-      this.list = result;
-    }, error => {
-      console.log(error);
-    });
+  source!: Observable<AchievementsDto[]>;
+
+  ngOnInit(): void {    
+   this.source = this.service.getAchievements();
   }
 
   dateToString = dateToString;

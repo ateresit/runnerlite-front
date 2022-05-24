@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { AppSettings } from '../app.settings';
 import { PlanVolunteerDto } from '../model/plan-volunteer-dto';
+import { RunTableInfo } from '../model/run-table-info';
 
 const URL = AppSettings.API_ENDPOINT + 'planVolunteer/';
 
@@ -28,10 +29,20 @@ export class PlanVolunteerService {
     return this.http.delete(URL + volunteersId);
   }
 
-  public tRCId$ = new Subject<number>();
+  private runTableInfo = new Subject<RunTableInfo>();
 
-  public changeTeamsRunningCountId(teamsRunningCountId: number) {
-    this.tRCId$.next(teamsRunningCountId);
+  public runTableInfo$ = this.runTableInfo.asObservable();
+
+  public changeRunTableInfo (info : RunTableInfo) {
+    this.runTableInfo.next(info);
+  }
+
+  private needRefresh = new Subject<boolean>();
+
+  public needRefresh$ = this.needRefresh.asObservable();
+
+  public changeNeedRefresh(nr : boolean) {
+    this.needRefresh.next(nr);
   }
 
 }

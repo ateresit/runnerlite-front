@@ -5,7 +5,7 @@
                 Мои достижения
             </mat-panel-title>
         </mat-expansion-panel-header>
-        <div class="running-info" *ngFor="let item of list">
+        <div class="running-info" *ngFor="let item of source | async">
             <p>Забег №{{item.runningNumber}} {{dateToString(item.runningDate)}}</p>
             <div class="running-info__team row">
                 <div class="running-info__image">                    

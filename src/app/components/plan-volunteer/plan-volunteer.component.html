@@ -4,6 +4,7 @@
             Волонтёры команды
         </mat-panel-title>
     </mat-expansion-panel-header>
+    <p>{{currentRun}}</p>
     <table mat-table [dataSource]="volunteerList" class="mat-elevation-z8">
         <ng-container matColumnDef="positionName">
             <th mat-header-cell *matHeaderCellDef>Позиция</th>
@@ -24,12 +25,14 @@
         <ng-container matColumnDef="buttons">
             <th mat-header-cell *matHeaderCellDef>Запрос на участие</th>
             <td mat-cell *matCellDef="let element">
-                <button *ngIf="element.id"
-                    (click)="deleteVolunteer(element.id)"
-                    mat-button color="warn">Отменить</button>
-                    <button 
-                    (click)="deleteVolunteer(element.id)"
-                    mat-button color="accent">Заявиться</button>
+                <div *ngIf="!element.statusRunner">
+                    <button *ngIf="element.id"
+                        (click)="deleteVolunteer(element.id)"
+                        mat-button color="warn">Отменить</button>
+                    <button *ngIf="!statusVolunteer"
+                        (click)="insertVolunteer(element.volunteersPositionId)"
+                        mat-button color="accent">Заявиться</button>
+                </div>                
             </td>
         </ng-container>
 
